@@ -11,7 +11,7 @@ app = FastAPI()
 
 
 def get_db():
-    """ Функция зависимости для получения экземпляра сессии базы данных
+    """Функция зависимости для получения экземпляра сессии базы данных
 
     Yields:
          Session: Сессия базы данных SQLAlchemy.
@@ -21,11 +21,11 @@ def get_db():
         yield db
     finally:
         db.close()
-        
-        
+
+
 @app.post("/notes/", response_model=schemas.Note)
 def create_note(note: schemas.NoteCreate, db: Session = Depends(get_db)):
-    """ Создает новую заметку в базе данных.
+    """Создает новую заметку в базе данных.
 
     Args:
         note (schemas.NoteCreate): Данные новой заметки.
@@ -39,7 +39,7 @@ def create_note(note: schemas.NoteCreate, db: Session = Depends(get_db)):
 
 @app.get("/notes/", response_model=list[schemas.Note])
 def read_notes(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
-    """ Возвращает список всех заметок.
+    """Возвращает список всех заметок.
 
     Args:
         skip (int, optional): Количество заметок для пропуска. Defaults to 0.
@@ -51,7 +51,8 @@ def read_notes(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
     """
     notes = crud.get_notes(db, skip=skip, limit=limit)
     return notes
-    
+
+
 @app.get("/notes/{note_id}", response_model=schemas.Note)
 def read_note(note_id: int, db: Session = Depends(get_db)):
     """Возвращает заметку по её ID.
@@ -74,7 +75,7 @@ def read_note(note_id: int, db: Session = Depends(get_db)):
 
 @app.delete("/notes/{note_id}", response_model=schemas.Note)
 def delete_note(note_id: int, db: Session = Depends(get_db)):
-    """ Удаляет заметку по её ID.
+    """Удаляет заметку по её ID.
 
     Args:
         note_id (int): ID заметки.
@@ -97,7 +98,9 @@ def delete_note(note_id: int, db: Session = Depends(get_db)):
 
 
 @app.get("/notes/search/", response_model=list[schemas.Note])
-def search_notes(keyword: str = Query(..., min_length=1), db: Session = Depends(get_db)):
+def search_notes(
+    keyword: str = Query(..., min_length=1), db: Session = Depends(get_db)
+):
     """Поиск заметок по ключевому слову или фразе в заголовке или содержании.
 
 

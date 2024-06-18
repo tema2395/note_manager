@@ -67,6 +67,7 @@ def delete_note_by_id(db: Session, note_id: int):
         return True
     return False
 
+
 def search_notes(db: Session, keyword: str):
     """
     Ищет заметки по ключевому слову или фразе в заголовке или содержании.
@@ -78,10 +79,13 @@ def search_notes(db: Session, keyword: str):
     Returns:
         list[models.Note]: Список заметок, содержащих указанное ключевое слово или фразу.
     """
-    return db.query(models.Note).filter(
-        or_(
-            models.Note.title.contains(keyword),
-            models.Note.content.contains(keyword)
+    return (
+        db.query(models.Note)
+        .filter(
+            or_(
+                models.Note.title.contains(keyword),
+                models.Note.content.contains(keyword),
+            )
         )
-    ).all()
-
+        .all()
+    )
