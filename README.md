@@ -14,8 +14,8 @@
 Сначала клонируйте репозиторий и перейдите в директорию проекта:
 
 ```sh
-git clone https://github.com/tema2395/library_app
-cd library_app
+git clone https://github.com/tema2395/note_manager
+cd note_manager
 ```
 
 
