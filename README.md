@@ -39,3 +39,4 @@ poetry run uvicorn note_manager.main:app --reload
 - `GET /notes/` - Получение списка заметок
 - `GET /notes/{note_id}` - Получение конкретной заметки по айди
 - `DELETE /notes/{note_id}` -  Удаление заметки по айди
+- `GET /notes/search/` - Поиск заметок по ключевому слову или фразе в заголовке или содержании.
